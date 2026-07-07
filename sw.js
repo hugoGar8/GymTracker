@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const CACHE = 'gym-tracker-v2';
-=======
-const CACHE = 'gym-tracker-v1';
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
+const CACHE = 'gym-tracker-v3';
 const ASSETS = [
   './',
   './index.html',

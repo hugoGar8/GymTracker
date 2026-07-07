@@ -436,7 +436,6 @@
   }
   .save-indicator.show { opacity: 1; }
 
-<<<<<<< HEAD
   .sync-status {
     display: flex;
     align-items: center;
@@ -450,8 +449,6 @@
   .sync-status.error { color: #d85a30; }
   .sync-status i { font-size: 14px; }
 
-=======
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
   /* ── Save button ── */
   .save-btn {
     display: flex;
@@ -469,10 +466,6 @@
     transition: opacity 0.15s, transform 0.12s, background 0.2s;
     flex-shrink: 0;
     white-space: nowrap;
-<<<<<<< HEAD
-=======
-    margin-left: auto;
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
   }
   .save-btn:active { transform: scale(0.95); }
   .save-btn.saved {
@@ -501,12 +494,9 @@
         <i class="ti ti-arrow-left" aria-hidden="true"></i>
       </button>
       <div class="breadcrumb" id="breadcrumb"></div>
-<<<<<<< HEAD
       <div class="sync-status" id="syncStatus" title="Estado de Firebase">
         <i class="ti ti-database-off"></i> Local
       </div>
-=======
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
       <button class="save-btn" id="saveBtn" onclick="manualSave()" aria-label="Guardar" style="display:none">
         <i class="ti ti-device-floppy"></i> Guardar
       </button>
@@ -542,7 +532,6 @@
   <div class="bottom-pad"></div>
 </div>
 
-<<<<<<< HEAD
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInAnonymously } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
@@ -604,9 +593,6 @@ if (isConfigured) {
   window.dispatchEvent(new CustomEvent('gym-cloud-disabled'));
 }
 </script>
-
-=======
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
 <script>
 const ROUTINE = {
   dias: [
@@ -720,7 +706,6 @@ const ROUTINE = {
 // ── State ──
 let state = { view: 'dias', diaId: null, bloqueId: null };
 let data = {};
-<<<<<<< HEAD
 let saveTimer = null;
 try { const s = localStorage.getItem('gym_tracker_v3'); if(s) data = JSON.parse(s); } catch(e){}
 
@@ -781,11 +766,6 @@ window.addEventListener('gym-cloud-error', e => {
 window.addEventListener('gym-cloud-disabled', () => {
   setSyncStatus('', 'Local', 'ti-database-off');
 });
-=======
-try { const s = localStorage.getItem('gym_tracker_v3'); if(s) data = JSON.parse(s); } catch(e){}
-
-function save() { try { localStorage.setItem('gym_tracker_v3', JSON.stringify(data)); } catch(e){} }
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
 
 // ── Storage helpers ──
 function key(dId,bId,eId,sem,set){ return `${dId}_${bId}_${eId}_s${sem}_r${set}`; }
@@ -981,10 +961,6 @@ function manualSave(){
     }
   });
   save();
-<<<<<<< HEAD
-  queueCloudSave();
-=======
->>>>>>> 6a71b68a022aa43217f399fc5800097b6406fbe5
   // Feedback visual en el botón
   const btn = document.getElementById('saveBtn');
   btn.classList.add('saved');
