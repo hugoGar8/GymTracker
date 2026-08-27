@@ -109,6 +109,8 @@
     font-size: 13px;
     color: var(--text-secondary);
     min-width: 0;
+    flex: 1;
+    overflow: hidden;
   }
   .breadcrumb .crumb { cursor: pointer; white-space: nowrap; }
   .breadcrumb .crumb:hover { color: var(--text); }
@@ -162,6 +164,52 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+
+  .routine-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .routine-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.12s, box-shadow 0.12s, border-color 0.15s;
+  }
+  .routine-card:hover { transform: translateY(-2px); border-color: var(--border-md); }
+  .routine-card:active { transform: scale(0.98); }
+
+  .routine-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .routine-info { flex: 1; min-width: 0; }
+  .routine-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .routine-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
   }
 
   .day-card {
@@ -444,10 +492,29 @@
     font-size: 12px;
     color: var(--text-tertiary);
     white-space: nowrap;
+    flex-shrink: 0;
   }
   .sync-status.ready { color: var(--accent); }
   .sync-status.error { color: #d85a30; }
   .sync-status i { font-size: 14px; }
+
+  @media (max-width: 420px) {
+    .top-bar-inner { gap: 8px; }
+    .sync-status {
+      width: 28px;
+      height: 28px;
+      justify-content: center;
+      overflow: hidden;
+      color: transparent;
+      gap: 0;
+    }
+    .sync-status i {
+      color: var(--text-tertiary);
+      font-size: 16px;
+    }
+    .sync-status.ready i { color: var(--accent); }
+    .sync-status.error i { color: #d85a30; }
+  }
 
   /* ── Save button ── */
   .save-btn {
@@ -503,14 +570,22 @@
     </div>
   </div>
 
-  <!-- ── VIEW: Días ── -->
-  <div class="view active" id="view-dias">
+  <!-- ── VIEW: Rutinas ── -->
+  <div class="view active" id="view-rutinas">
     <div class="hero">
       <div class="hero-icon"><i class="ti ti-barbell" aria-hidden="true"></i></div>
       <h1>Gym Tracker</h1>
       <p>Registra tus pesos semana a semana</p>
     </div>
     <div class="page-content" style="padding-top:0">
+      <p class="section-label">Selecciona la rutina</p>
+      <div class="routine-list" id="routineList"></div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: Días ── -->
+  <div class="view" id="view-dias">
+    <div class="page-content">
       <p class="section-label">Selecciona el día</p>
       <div class="day-grid" id="dayGrid"></div>
     </div>
@@ -703,8 +778,57 @@ const ROUTINE = {
   ]
 };
 
+const ROUTINES = [
+  {
+    id: 'rutina_mini_verano',
+    nombre: 'Rutina mini verano',
+    meta: 'Rutina actual · 4 días · bloques por sesión',
+    dias: ROUTINE.dias,
+    legacyStorage: true,
+  },
+  {
+    id: 'rutina_invierno_fase_1_base_fuerza',
+    nombre: 'Rutina invierno - Fase 1 - base fuerza',
+    meta: '5 semanas + 1 descarga · RPE 6-7 · técnica y base muscular',
+    dias: [
+      {
+        id: 'sesion_a',
+        label: 'Sesión A · Martes',
+        shortLabel: 'Martes',
+        color: 'd1',
+        bloques: [
+          { id: 'a_ejercicios', nombre: 'Ejercicios', icon: 'ti-barbell', ejercicios: [
+            { id: 'a_sentadilla', nombre: 'Sentadilla', schema: '4×6 · 2:00-2:30', sets: 4 },
+            { id: 'a_remo_polea_dominada', nombre: 'Remo en polea o dominada asistida', schema: '4×8 · 1:30-2:00', sets: 4 },
+            { id: 'a_peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '3×8 · 1:30-2:00', sets: 3 },
+            { id: 'a_press_landmine', nombre: 'Press landmine unilateral', schema: '3×8 / brazo · 60-90 s', sets: 3 },
+            { id: 'a_woodchopper', nombre: 'Cable woodchopper (rotación de tronco)', schema: '3×8 / lado · 60-75 s', sets: 3 },
+            { id: 'a_pallof_press', nombre: 'Pallof press', schema: '3×10 / lado · 45-60 s', sets: 3 },
+          ]},
+        ]
+      },
+      {
+        id: 'sesion_b',
+        label: 'Sesión B · Jueves',
+        shortLabel: 'Jueves',
+        color: 'd2',
+        bloques: [
+          { id: 'b_ejercicios', nombre: 'Ejercicios', icon: 'ti-bolt', ejercicios: [
+            { id: 'b_salto_vertical', nombre: 'Salto vertical', schema: '3×3 · 60-90 s', sets: 3 },
+            { id: 'b_trap_bar_deadlift', nombre: 'Trap bar deadlift', schema: '3×6 · 2:00-2:30', sets: 3 },
+            { id: 'b_remo_pecho_apoyado', nombre: 'Remo con pecho apoyado', schema: '3×8 · 90 s', sets: 3 },
+            { id: 'b_split_squat_bulgaro', nombre: 'Split squat búlgaro', schema: '3×8 / pierna · 90 s', sets: 3 },
+            { id: 'b_farmers_walk', nombre: "Farmer's walk (mancuernas)", schema: '3×30 m · 60-90 s', sets: 3 },
+            { id: 'b_face_pull_rotacion', nombre: 'S - Face pull + rotación externa', schema: '3×12-15 · 45-60 s', sets: 3 },
+          ]},
+        ]
+      },
+    ]
+  }
+];
+
 // ── State ──
-let state = { view: 'dias', diaId: null, bloqueId: null };
+let state = { view: 'rutinas', routineId: null, diaId: null, bloqueId: null };
 let data = {};
 let saveTimer = null;
 try { const s = localStorage.getItem('gym_tracker_v3'); if(s) data = JSON.parse(s); } catch(e){}
@@ -768,10 +892,15 @@ window.addEventListener('gym-cloud-disabled', () => {
 });
 
 // ── Storage helpers ──
-function key(dId,bId,eId,sem,set){ return `${dId}_${bId}_${eId}_s${sem}_r${set}`; }
-function noteKey(dId,bId,eId,sem){ return `${dId}_${bId}_${eId}_s${sem}_notes`; }
-function weeksKey(dId,bId,eId){ return `${dId}_${bId}_${eId}_weeks`; }
-function awKey(dId,bId,eId){ return `${dId}_${bId}_${eId}_aw`; }
+function getRoutine(){ return ROUTINES.find(r=>r.id===state.routineId) || null; }
+function storagePrefix(){
+  const routine = getRoutine();
+  return routine?.legacyStorage ? '' : `${state.routineId}_`;
+}
+function key(dId,bId,eId,sem,set){ return `${storagePrefix()}${dId}_${bId}_${eId}_s${sem}_r${set}`; }
+function noteKey(dId,bId,eId,sem){ return `${storagePrefix()}${dId}_${bId}_${eId}_s${sem}_notes`; }
+function weeksKey(dId,bId,eId){ return `${storagePrefix()}${dId}_${bId}_${eId}_weeks`; }
+function awKey(dId,bId,eId){ return `${storagePrefix()}${dId}_${bId}_${eId}_aw`; }
 function getWeeks(dId,bId,eId){ return data[weeksKey(dId,bId,eId)] || [1]; }
 function getAW(dId,bId,eId){ return data[awKey(dId,bId,eId)] || 1; }
 function hasData(dId,bId,ej,sem){
@@ -785,50 +914,102 @@ function showView(name){
   document.getElementById('view-'+name).classList.add('active');
   const tb = document.getElementById('topBar');
   const sb = document.getElementById('saveBtn');
-  tb.style.display = (name==='dias') ? 'none' : 'block';
+  tb.style.display = (name==='rutinas') ? 'none' : 'block';
   sb.style.display = (name==='ejercicios') ? 'flex' : 'none';
   window.scrollTo(0,0);
 }
 
 function updateBreadcrumb(){
-  const dia = ROUTINE.dias.find(d=>d.id===state.diaId);
+  const routine = getRoutine();
+  const dia = routine?.dias.find(d=>d.id===state.diaId);
   const bloque = dia?.bloques.find(b=>b.id===state.bloqueId);
   const bc = document.getElementById('breadcrumb');
-  let html = `<span class="crumb" onclick="goToDias()">Inicio</span>`;
+  let html = `<span class="crumb" onclick="goToRutinas()">Rutinas</span>`;
+  if(routine){
+    html += `<span class="sep"><i class="ti ti-chevron-right"></i></span>`;
+    if(dia){
+      html += `<span class="crumb" onclick="goToDias()">${routine.nombre}</span>`;
+    } else {
+      html += `<span class="active">${routine.nombre}</span>`;
+    }
+  }
   if(dia){
     html += `<span class="sep"><i class="ti ti-chevron-right"></i></span>`;
     if(bloque){
-      html += `<span class="crumb" onclick="goToBloques()">${'Día '+(ROUTINE.dias.indexOf(dia)+1)}</span>`;
-      html += `<span class="sep"><i class="ti ti-chevron-right"></i></span>`;
-      html += `<span class="active">${bloque.nombre}</span>`;
+      if(dia.bloques.length === 1){
+        html += `<span class="active">${dia.label}</span>`;
+      } else {
+        html += `<span class="crumb" onclick="goToBloques()">${dia.label}</span>`;
+        html += `<span class="sep"><i class="ti ti-chevron-right"></i></span>`;
+        html += `<span class="active">${bloque.nombre}</span>`;
+      }
     } else {
-      html += `<span class="active">Día ${ROUTINE.dias.indexOf(dia)+1} — ${dia.label}</span>`;
+      html += `<span class="active">${dia.label}</span>`;
     }
   }
   bc.innerHTML = html;
 }
 
 function goBack(){
-  if(state.view==='ejercicios'){ goToBloques(); }
+  if(state.view==='ejercicios'){
+    const dia = getRoutine()?.dias.find(d=>d.id===state.diaId);
+    if(dia?.bloques.length === 1) goToDias();
+    else goToBloques();
+  }
   else if(state.view==='bloques'){ goToDias(); }
+  else if(state.view==='dias'){ goToRutinas(); }
 }
-function goToDias(){ state.view='dias'; state.diaId=null; state.bloqueId=null; showView('dias'); }
+function goToRutinas(){ state.view='rutinas'; state.routineId=null; state.diaId=null; state.bloqueId=null; showView('rutinas'); }
+function goToDias(){ state.view='dias'; state.diaId=null; state.bloqueId=null; renderDias(); showView('dias'); updateBreadcrumb(); }
 function goToBloques(){ state.view='bloques'; state.bloqueId=null; renderBloques(); showView('bloques'); updateBreadcrumb(); }
+
+// ── Render rutinas ──
+function renderRutinas(){
+  const list = document.getElementById('routineList');
+  list.innerHTML = ROUTINES.map(r=>`
+    <div class="routine-card" onclick="selectRoutine('${r.id}')" role="button" tabindex="0">
+      <div class="routine-icon"><i class="ti ti-clipboard-list" aria-hidden="true"></i></div>
+      <div class="routine-info">
+        <div class="routine-name">${r.nombre}</div>
+        <div class="routine-meta">${r.meta} · ${r.dias.length} sesiones</div>
+      </div>
+      <i class="ti ti-chevron-right block-chevron" aria-hidden="true"></i>
+    </div>
+  `).join('');
+}
+
+function selectRoutine(id){
+  state.routineId = id;
+  state.view = 'dias';
+  renderDias();
+  showView('dias');
+  updateBreadcrumb();
+}
 
 // ── Render días ──
 function renderDias(){
+  const routine = getRoutine();
   const grid = document.getElementById('dayGrid');
-  grid.innerHTML = ROUTINE.dias.map((d,i)=>`
+  grid.innerHTML = routine.dias.map((d,i)=>`
     <div class="day-card ${d.color}" onclick="selectDia('${d.id}')" role="button" tabindex="0">
-      <div class="day-num">Día ${i+1}</div>
+      <div class="day-num">${d.shortLabel || `Día ${i+1}`}</div>
       <div class="day-label">${d.label}</div>
-      <div class="day-meta">${d.bloques.length} bloques · ${d.bloques.reduce((a,b)=>a+b.ejercicios.length,0)} ejercicios</div>
+      <div class="day-meta">${d.bloques.length === 1 ? 'Todos los ejercicios' : `${d.bloques.length} bloques`} · ${d.bloques.reduce((a,b)=>a+b.ejercicios.length,0)} ejercicios</div>
     </div>
   `).join('');
 }
 
 function selectDia(id){
   state.diaId = id;
+  const dia = getRoutine().dias.find(d=>d.id===id);
+  if(dia.bloques.length === 1){
+    state.bloqueId = dia.bloques[0].id;
+    state.view = 'ejercicios';
+    renderEjercicios();
+    showView('ejercicios');
+    updateBreadcrumb();
+    return;
+  }
   state.view = 'bloques';
   renderBloques();
   showView('bloques');
@@ -837,7 +1018,7 @@ function selectDia(id){
 
 // ── Render bloques ──
 function renderBloques(){
-  const dia = ROUTINE.dias.find(d=>d.id===state.diaId);
+  const dia = getRoutine().dias.find(d=>d.id===state.diaId);
   const list = document.getElementById('blockList');
   const icons = ['ti-bolt','ti-flame','ti-bounce-right','ti-arrows-up-down','ti-trophy'];
   list.innerHTML = dia.bloques.map((b,i)=>`
@@ -862,7 +1043,7 @@ function selectBloque(id){
 
 // ── Render ejercicios ──
 function renderEjercicios(){
-  const dia = ROUTINE.dias.find(d=>d.id===state.diaId);
+  const dia = getRoutine().dias.find(d=>d.id===state.diaId);
   const bloque = dia.bloques.find(b=>b.id===state.bloqueId);
   const container = document.getElementById('ejerciciosContent');
 
@@ -998,7 +1179,7 @@ document.addEventListener('keydown', e=>{
 });
 
 // ── Init ──
-renderDias();
+renderRutinas();
 
 // ── Service Worker (PWA) ──
 if ('serviceWorker' in navigator) {
