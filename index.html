@@ -499,21 +499,38 @@
   .sync-status i { font-size: 14px; }
 
   @media (max-width: 420px) {
-    .top-bar-inner { gap: 8px; }
+    .top-bar-inner {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr) auto;
+      gap: 8px 10px;
+    }
+
+    .back-btn { grid-column: 1; }
+    .breadcrumb { grid-column: 2 / 4; }
+
     .sync-status {
-      width: 28px;
-      height: 28px;
-      justify-content: center;
-      overflow: hidden;
-      color: transparent;
-      gap: 0;
-    }
-    .sync-status i {
+      grid-column: 1 / 3;
+      grid-row: 2;
+      width: auto;
+      height: auto;
+      justify-content: flex-start;
+      overflow: visible;
       color: var(--text-tertiary);
-      font-size: 16px;
+      font-size: 11px;
+      margin-left: 0;
+      padding-left: 2px;
     }
-    .sync-status.ready i { color: var(--accent); }
-    .sync-status.error i { color: #d85a30; }
+
+    .sync-status.ready { color: var(--accent); }
+    .sync-status.error { color: #d85a30; }
+    .sync-status i { font-size: 13px; }
+
+    .save-btn {
+      grid-column: 3;
+      grid-row: 2;
+      justify-self: end;
+      min-width: 0;
+    }
   }
 
   /* ── Save button ── */
