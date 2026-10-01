@@ -803,39 +803,55 @@ const ROUTINES = [
     legacyStorage: true,
   },
   {
-    id: 'rutina_invierno_fase_1_base_fuerza',
-    nombre: 'Rutina invierno - Fase 1 - base fuerza',
-    meta: '5 semanas + 1 descarga · RPE 6-7 · técnica y base muscular',
+    id: 'fase_fuerza_invierno',
+    nombre: 'Fase fuerza - invierno',
+    meta: '4 semanas · base de fuerza máxima · RPE 6-8',
     dias: [
       {
-        id: 'sesion_a',
-        label: 'Sesión A · Martes',
-        shortLabel: 'Martes',
+        id: 'dia1',
+        label: 'Día 1',
+        shortLabel: 'Día 1',
         color: 'd1',
         bloques: [
-          { id: 'a_ejercicios', nombre: 'Ejercicios', icon: 'ti-barbell', ejercicios: [
-            { id: 'a_sentadilla', nombre: 'Sentadilla', schema: '4×6 · 2:00-2:30', sets: 4 },
-            { id: 'a_remo_polea_dominada', nombre: 'Remo en polea o dominada asistida', schema: '4×8 · 1:30-2:00', sets: 4 },
-            { id: 'a_peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '3×8 · 1:30-2:00', sets: 3 },
-            { id: 'a_press_landmine', nombre: 'Press landmine unilateral', schema: '3×8 / brazo · 60-90 s', sets: 3 },
-            { id: 'a_woodchopper', nombre: 'Cable woodchopper (rotación de tronco)', schema: '3×8 / lado · 60-75 s', sets: 3 },
-            { id: 'a_pallof_press', nombre: 'Pallof press', schema: '3×10 / lado · 45-60 s', sets: 3 },
+          { id: 'ejercicios_dia1', nombre: 'Ejercicios', icon: 'ti-barbell', ejercicios: [
+            { id: 'sentadilla_trasera', nombre: 'Sentadilla trasera (o goblet)', schema: '4×5 · 2-3 min', sets: 4 },
+            { id: 'remo_barra_inclinado', nombre: 'Remo con barra inclinado', schema: '4×6 · 2 min', sets: 4 },
+            { id: 'press_banca_mancuernas', nombre: 'Press banca con mancuernas', schema: '3×6-8 · 2 min', sets: 3 },
+            { id: 'peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '3×6-8 · 2 min', sets: 3 },
+            { id: 'face_pull_cuerda', nombre: 'Face pull con cuerda', schema: '3×12-15 · 60 s', sets: 3 },
+            { id: 'pallof_press', nombre: 'Pallof press', schema: '3×10/lado · 45 s', sets: 3 },
           ]},
         ]
       },
       {
-        id: 'sesion_b',
-        label: 'Sesión B · Jueves',
-        shortLabel: 'Jueves',
+        id: 'dia2',
+        label: 'Día 2',
+        shortLabel: 'Día 2',
         color: 'd2',
         bloques: [
-          { id: 'b_ejercicios', nombre: 'Ejercicios', icon: 'ti-bolt', ejercicios: [
-            { id: 'b_salto_vertical', nombre: 'Salto vertical', schema: '3×3 · 60-90 s', sets: 3 },
-            { id: 'b_trap_bar_deadlift', nombre: 'Trap bar deadlift', schema: '3×6 · 2:00-2:30', sets: 3 },
-            { id: 'b_remo_pecho_apoyado', nombre: 'Remo con pecho apoyado', schema: '3×8 · 90 s', sets: 3 },
-            { id: 'b_split_squat_bulgaro', nombre: 'Split squat búlgaro', schema: '3×8 / pierna · 90 s', sets: 3 },
-            { id: 'b_farmers_walk', nombre: "Farmer's walk (mancuernas)", schema: '3×30 m · 60-90 s', sets: 3 },
-            { id: 'b_face_pull_rotacion', nombre: 'S - Face pull + rotación externa', schema: '3×12-15 · 45-60 s', sets: 3 },
+          { id: 'ejercicios_dia2', nombre: 'Ejercicios', icon: 'ti-bolt', ejercicios: [
+            { id: 'dominadas', nombre: 'Dominadas (o asistidas / jalón)', schema: '4×5-6 · 2-3 min', sets: 4 },
+            { id: 'press_landmine_una_mano', nombre: 'Press landmine a una mano', schema: '3×8/lado · 90 s', sets: 3 },
+            { id: 'zancada_bulgara', nombre: 'Zancada búlgara', schema: '3×6-8/pierna · 90 s', sets: 3 },
+            { id: 'remo_polea_baja', nombre: 'Remo en polea baja (agarre neutro)', schema: '3×8-10 · 90 s', sets: 3 },
+            { id: 'rotacion_externa', nombre: 'Rotación externa con polea o banda', schema: '3×12-15 · 45 s', sets: 3 },
+            { id: 'plancha_lateral', nombre: 'Plancha lateral', schema: '3×30-40 s/lado · 45 s', sets: 3 },
+          ]},
+        ]
+      },
+      {
+        id: 'dia3',
+        label: 'Día 3',
+        shortLabel: 'Día 3',
+        color: 'd3',
+        bloques: [
+          { id: 'ejercicios_dia3', nombre: 'Ejercicios', icon: 'ti-dumbbell', ejercicios: [
+            { id: 'peso_muerto', nombre: 'Peso muerto (barra hexagonal o convencional)', schema: '3×5 · 2-3 min', sets: 3 },
+            { id: 'press_banca_barra', nombre: 'Press banca con barra', schema: '4×5 · 2-3 min', sets: 4 },
+            { id: 'remo_mancuerna_una_mano', nombre: 'Remo con mancuerna a una mano', schema: '3×8/lado · 90 s', sets: 3 },
+            { id: 'hip_thrust', nombre: 'Hip thrust', schema: '3×8 · 90 s', sets: 3 },
+            { id: 'paseo_granjero', nombre: 'Paseo del granjero', schema: '3×30 m · 60 s', sets: 3 },
+            { id: 'dead_bug', nombre: 'Dead bug', schema: '3×8/lado · 45 s', sets: 3 },
           ]},
         ]
       },
