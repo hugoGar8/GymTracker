@@ -803,55 +803,84 @@ const ROUTINES = [
     legacyStorage: true,
   },
   {
-    id: 'fase_fuerza_invierno',
-    nombre: 'Fase fuerza - invierno',
-    meta: '4 semanas · base de fuerza máxima · RPE 6-8',
+    id: 'pablo_primera_fase',
+    nombre: 'Pablo - Primera fase',
+    meta: '4 semanas · 3 días · pliometría, fuerza e hipertrofia',
     dias: [
       {
-        id: 'dia1',
-        label: 'Día 1',
-        shortLabel: 'Día 1',
-        color: 'd1',
+        id: 'dia1', label: 'Día 1', shortLabel: 'Día 1', color: 'd1',
         bloques: [
-          { id: 'ejercicios_dia1', nombre: 'Ejercicios', icon: 'ti-barbell', ejercicios: [
-            { id: 'sentadilla_trasera', nombre: 'Sentadilla trasera (o goblet)', schema: '4×5 · 2-3 min', sets: 4 },
-            { id: 'remo_barra_inclinado', nombre: 'Remo con barra inclinado', schema: '4×6 · 2 min', sets: 4 },
-            { id: 'press_banca_mancuernas', nombre: 'Press banca con mancuernas', schema: '3×6-8 · 2 min', sets: 3 },
-            { id: 'peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '3×6-8 · 2 min', sets: 3 },
-            { id: 'face_pull_cuerda', nombre: 'Face pull con cuerda', schema: '3×12-15 · 60 s', sets: 3 },
-            { id: 'pallof_press', nombre: 'Pallof press', schema: '3×10/lado · 45 s', sets: 3 },
+          { id: 'pliometria', nombre: 'Pliometría', icon: 'ti-bounce-right', ejercicios: [
+            { id: 's1_broad_jumps', nombre: 'S1 · Broad jumps', schema: '2×4 · 3 min', sets: 2 },
+            { id: 's2_broad_jumps_continuos', nombre: 'S2 · Broad jumps continuos', schema: '2×4 · 3 min', sets: 2 },
+            { id: 's3_broad_jumps_salto_vertical', nombre: 'S3 · Broad jumps + salto vertical', schema: '2×4 · 3 min', sets: 2 },
+            { id: 's4_broad_jumps_carga', nombre: 'S4 · Broad jumps con carga', schema: '2×4 · 3 min', sets: 2 },
+          ]},
+          { id: 'fuerza', nombre: 'Fuerza', icon: 'ti-barbell', ejercicios: [
+            { id: 'tiron_barra', nombre: 'Tirón con barra', schema: '4×6 · 2 min', sets: 4 },
+            { id: 'sentadilla_cajon', nombre: 'Sentadilla a cajón', schema: '4×8 · 2 min', sets: 4 },
+            { id: 'remo_tumbado', nombre: 'Remo tumbado', schema: '4×8 · 2 min', sets: 4 },
+          ]},
+          { id: 'hipertrofia', nombre: 'Hipertrofia y compensación', icon: 'ti-dumbbell', ejercicios: [
+            { id: 'bulgaras', nombre: 'Búlgaras', schema: '3×10/pierna · 1:30 min', sets: 3 },
+            { id: 'jalon_supino', nombre: 'Jalón agarre supino', schema: '3×10-12 · 1:30 min', sets: 3 },
+            { id: 'chop_paso', nombre: 'Chop con paso', schema: '3×8-10/lado · 1:30 min', sets: 3 },
+            { id: 'superman', nombre: 'Superman', schema: '3×12 · 1:30 min', sets: 3 },
           ]},
         ]
       },
       {
-        id: 'dia2',
-        label: 'Día 2',
-        shortLabel: 'Día 2',
-        color: 'd2',
+        id: 'dia2', label: 'Día 2', shortLabel: 'Día 2', color: 'd2',
         bloques: [
-          { id: 'ejercicios_dia2', nombre: 'Ejercicios', icon: 'ti-bolt', ejercicios: [
-            { id: 'dominadas', nombre: 'Dominadas (o asistidas / jalón)', schema: '4×5-6 · 2-3 min', sets: 4 },
-            { id: 'press_landmine_una_mano', nombre: 'Press landmine a una mano', schema: '3×8/lado · 90 s', sets: 3 },
-            { id: 'zancada_bulgara', nombre: 'Zancada búlgara', schema: '3×6-8/pierna · 90 s', sets: 3 },
-            { id: 'remo_polea_baja', nombre: 'Remo en polea baja (agarre neutro)', schema: '3×8-10 · 90 s', sets: 3 },
-            { id: 'rotacion_externa', nombre: 'Rotación externa con polea o banda', schema: '3×12-15 · 45 s', sets: 3 },
-            { id: 'plancha_lateral', nombre: 'Plancha lateral', schema: '3×30-40 s/lado · 45 s', sets: 3 },
+          { id: 'pliometria', nombre: 'Pliometría', icon: 'ti-bounce-right', ejercicios: [
+            { id: 's1_flexiones_explosivas', nombre: 'S1 · Flexiones explosivas', schema: '2×4 · 3 min', sets: 2 },
+            { id: 's1_lanzamiento_lateral_pie', nombre: 'S1 · Lanzamiento de balón lateral de pie', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's1_punetazo_rotacional', nombre: 'S1 · Alternativa: puñetazo rotacional en polea/goma', schema: '2×5/lado · 3 min', sets: 2 },
+            { id: 's2_lanzamiento_tumbado', nombre: 'S2 · Lanzamiento de balón tumbado/multipower', schema: '2×6 · 3 min', sets: 2 },
+            { id: 's2_lanzamiento_pecho_pared', nombre: 'S2 · Lanzamiento de balón desde pecho a pared', schema: '2×5 · 3 min', sets: 2 },
+            { id: 's2_empuje_goma', nombre: 'S2 · Alternativa: empuje explosivo con goma frontal', schema: '2×5 · 3 min', sets: 2 },
+            { id: 's3_flexiones_palmada', nombre: 'S3 · Flexiones con palmada', schema: '2×5 · 3 min', sets: 2 },
+            { id: 's3_lanzamiento_lateral_rodillas', nombre: 'S3 · Lanzamiento de balón lateral de rodillas', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's4_lanzamiento_tumbado', nombre: 'S4 · Lanzamiento de balón tumbado/multipower', schema: '2×5 · 3 min', sets: 2 },
+            { id: 's4_lanzamiento_pecho_rodillas', nombre: 'S4 · Lanzamiento de balón desde pecho a pared de rodillas', schema: '2×5 · 3 min', sets: 2 },
+            { id: 's4_empuje_goma_rodillas', nombre: 'S4 · Alternativa: empuje explosivo con goma frontal de rodillas', schema: '2×5 · 3 min', sets: 2 },
+          ]},
+          { id: 'fuerza', nombre: 'Fuerza', icon: 'ti-barbell', ejercicios: [
+            { id: 'push_press', nombre: 'Push press', schema: '4×6 · 2 min', sets: 4 },
+            { id: 'dominadas_lastradas', nombre: 'Dominadas lastradas', schema: '4×8 · 2 min', sets: 4 },
+            { id: 'peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '4×8 · 2 min', sets: 4 },
+          ]},
+          { id: 'hipertrofia', nombre: 'Hipertrofia y compensación', icon: 'ti-dumbbell', ejercicios: [
+            { id: 'press_inclinado', nombre: 'Press inclinado máquina/mancuernas', schema: '3×10-12 · 1:30 min', sets: 3 },
+            { id: 'remo_una_mano_banco', nombre: 'Remo 1 mano apoyado en banco', schema: '3×10-12/brazo · 1:30 min', sets: 3 },
+            { id: 'face_pulls', nombre: 'Face pulls', schema: '3×12 · 1:30 min', sets: 3 },
+            { id: 'rueda_abdominal', nombre: 'Rueda abdominal', schema: '3×10 · 1:30 min', sets: 3 },
           ]},
         ]
       },
       {
-        id: 'dia3',
-        label: 'Día 3',
-        shortLabel: 'Día 3',
-        color: 'd3',
+        id: 'dia3', label: 'Día 3', shortLabel: 'Día 3', color: 'd3',
         bloques: [
-          { id: 'ejercicios_dia3', nombre: 'Ejercicios', icon: 'ti-dumbbell', ejercicios: [
-            { id: 'peso_muerto', nombre: 'Peso muerto (barra hexagonal o convencional)', schema: '3×5 · 2-3 min', sets: 3 },
-            { id: 'press_banca_barra', nombre: 'Press banca con barra', schema: '4×5 · 2-3 min', sets: 4 },
-            { id: 'remo_mancuerna_una_mano', nombre: 'Remo con mancuerna a una mano', schema: '3×8/lado · 90 s', sets: 3 },
-            { id: 'hip_thrust', nombre: 'Hip thrust', schema: '3×8 · 90 s', sets: 3 },
-            { id: 'paseo_granjero', nombre: 'Paseo del granjero', schema: '3×30 m · 60 s', sets: 3 },
-            { id: 'dead_bug', nombre: 'Dead bug', schema: '3×8/lado · 45 s', sets: 3 },
+          { id: 'pliometria', nombre: 'Pliometría', icon: 'ti-bounce-right', ejercicios: [
+            { id: 's1_saltos_laterales_pausa', nombre: 'S1 · Saltos laterales con pausa de 2 s', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's1_skater_pausa', nombre: 'S1 · Skater jumps con pausa de 2 s', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's2_saltos_laterales', nombre: 'S2 · Saltos laterales sin pausa', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's2_skater', nombre: 'S2 · Skater jumps sin pausa', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's3_saltos_laterales_45', nombre: 'S3 · Saltos laterales sin pausa a 45°', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's3_skater_45', nombre: 'S3 · Skater jumps sin pausa a 45°', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's4_saltos_laterales_goma', nombre: 'S4 · Saltos laterales con goma', schema: '2×4/lado · 3 min', sets: 2 },
+            { id: 's4_skater_goma', nombre: 'S4 · Skater jumps con goma', schema: '2×4/lado · 3 min', sets: 2 },
+          ]},
+          { id: 'fuerza', nombre: 'Fuerza', icon: 'ti-barbell', ejercicios: [
+            { id: 'landmine_squat_press', nombre: 'Landmine squat to press', schema: '4×8 · 2 min', sets: 4 },
+            { id: 'landmine_clean_rotational_press', nombre: 'Landmine clean to rotational press', schema: '4×6-8/lado · 2 min', sets: 4 },
+            { id: 'sentadilla_una_pierna', nombre: 'Sentadilla a 1 pierna', schema: '3×8/pierna · 2 min', sets: 3 },
+          ]},
+          { id: 'hipertrofia', nombre: 'Hipertrofia y compensación', icon: 'ti-dumbbell', ejercicios: [
+            { id: 'landmine_rotation', nombre: 'Landmine rotation', schema: '3×10/lado · 1:30 min', sets: 3 },
+            { id: 'hanging_leg_raises_banco', nombre: 'Hanging leg raises en banco', schema: '3×10 · 1:30 min', sets: 3 },
+            { id: 'curl_martillo', nombre: 'Curl de bíceps martillo', schema: '3×12 · 1:30 min', sets: 3 },
+            { id: 'triceps_polea_cruzada', nombre: 'Tríceps en polea cruzada', schema: '3×12 · 1:30 min', sets: 3 },
           ]},
         ]
       },
