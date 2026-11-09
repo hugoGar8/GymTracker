@@ -148,6 +148,27 @@
     color: var(--text-secondary);
   }
 
+  .data-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .data-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 0.5px solid var(--border-md);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font: 500 13px inherit;
+    cursor: pointer;
+  }
+  .data-action-btn:hover { color: var(--text); border-color: var(--text-tertiary); }
+  .data-action-btn i { font-size: 15px; }
+
   /* ── Section label ── */
   .section-label {
     font-size: 11px;
@@ -592,6 +613,15 @@
       <div class="hero-icon"><i class="ti ti-barbell" aria-hidden="true"></i></div>
       <h1>Gym Tracker</h1>
       <p>Registra tus pesos semana a semana</p>
+      <div class="data-actions" aria-label="Copias de seguridad">
+        <button class="data-action-btn" type="button" onclick="exportData()">
+          <i class="ti ti-download" aria-hidden="true"></i> Exportar datos
+        </button>
+        <button class="data-action-btn" type="button" onclick="document.getElementById('importFile').click()">
+          <i class="ti ti-upload" aria-hidden="true"></i> Importar datos
+        </button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden onchange="importData(this.files[0]); this.value=''">
+      </div>
     </div>
     <div class="page-content" style="padding-top:0">
       <p class="section-label">Selecciona la rutina</p>
@@ -817,9 +847,9 @@ const ROUTINES = [
             { id: 's4_broad_jumps_carga', nombre: 'S4 · Broad jumps con carga', schema: '2×4 · 3 min', sets: 2 },
           ]},
           { id: 'fuerza', nombre: 'Fuerza', icon: 'ti-barbell', ejercicios: [
-            { id: 'tiron_barra', nombre: 'Tirón con barra', schema: '4×6 · 2 min', sets: 4 },
-            { id: 'sentadilla_cajon', nombre: 'Sentadilla a cajón', schema: '4×8 · 2 min', sets: 4 },
-            { id: 'remo_tumbado', nombre: 'Remo tumbado', schema: '4×8 · 2 min', sets: 4 },
+            { id: 'tiron_barra', nombre: 'Tirón con barra', schema: '4×5 · 2 min', sets: 4 },
+            { id: 'sentadilla_cajon', nombre: 'Sentadilla a cajón', schema: '4×6 · 2 min', sets: 4 },
+            { id: 'remo_tumbado', nombre: 'Remo tumbado', schema: '4×6 · 2 min', sets: 4 },
           ]},
           { id: 'hipertrofia', nombre: 'Hipertrofia y compensación', icon: 'ti-dumbbell', ejercicios: [
             { id: 'bulgaras', nombre: 'Búlgaras', schema: '3×10/pierna · 1:30 min', sets: 3 },
@@ -846,9 +876,9 @@ const ROUTINES = [
             { id: 's4_empuje_goma_rodillas', nombre: 'S4 · Alternativa: empuje explosivo con goma frontal de rodillas', schema: '2×5 · 3 min', sets: 2 },
           ]},
           { id: 'fuerza', nombre: 'Fuerza', icon: 'ti-barbell', ejercicios: [
-            { id: 'push_press', nombre: 'Push press', schema: '4×6 · 2 min', sets: 4 },
-            { id: 'dominadas_lastradas', nombre: 'Dominadas lastradas', schema: '4×8 · 2 min', sets: 4 },
-            { id: 'peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '4×8 · 2 min', sets: 4 },
+            { id: 'push_press', nombre: 'Push press', schema: '4×5 · 2 min', sets: 4 },
+            { id: 'dominadas_lastradas', nombre: 'Dominadas lastradas', schema: '4×6 · 2 min', sets: 4 },
+            { id: 'peso_muerto_rumano', nombre: 'Peso muerto rumano', schema: '4×6-8 · 2 min', sets: 4 },
           ]},
           { id: 'hipertrofia', nombre: 'Hipertrofia y compensación', icon: 'ti-dumbbell', ejercicios: [
             { id: 'press_inclinado', nombre: 'Press inclinado máquina/mancuernas', schema: '3×10-12 · 1:30 min', sets: 3 },
@@ -872,9 +902,9 @@ const ROUTINES = [
             { id: 's4_skater_goma', nombre: 'S4 · Skater jumps con goma', schema: '2×4/lado · 3 min', sets: 2 },
           ]},
           { id: 'fuerza', nombre: 'Fuerza', icon: 'ti-barbell', ejercicios: [
-            { id: 'landmine_squat_press', nombre: 'Landmine squat to press', schema: '4×8 · 2 min', sets: 4 },
-            { id: 'landmine_clean_rotational_press', nombre: 'Landmine clean to rotational press', schema: '4×6-8/lado · 2 min', sets: 4 },
-            { id: 'sentadilla_una_pierna', nombre: 'Sentadilla a 1 pierna', schema: '3×8/pierna · 2 min', sets: 3 },
+            { id: 'landmine_squat_press', nombre: 'Landmine squat to press', schema: '4×6 · 2 min', sets: 4 },
+            { id: 'landmine_clean_rotational_press', nombre: 'Landmine clean to rotational press', schema: '4×6/lado · 2 min', sets: 4 },
+            { id: 'sentadilla_una_pierna', nombre: 'Sentadilla a 1 pierna', schema: '3×6/pierna · 2 min', sets: 3 },
           ]},
           { id: 'hipertrofia', nombre: 'Hipertrofia y compensación', icon: 'ti-dumbbell', ejercicios: [
             { id: 'landmine_rotation', nombre: 'Landmine rotation', schema: '3×10/lado · 1:30 min', sets: 3 },
@@ -904,6 +934,41 @@ function setSyncStatus(type, text, icon){
 function save() {
   try { localStorage.setItem('gym_tracker_v3', JSON.stringify(data)); } catch(e){}
   queueCloudSave();
+}
+
+function exportData(){
+  const backup = {
+    app: 'Gym Tracker',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    data
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `gym-tracker-datos-${new Date().toISOString().slice(0,10)}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = event => {
+    try {
+      const backup = JSON.parse(event.target.result);
+      const imported = backup?.data ?? backup;
+      if(!imported || typeof imported !== 'object' || Array.isArray(imported)) throw new Error('Formato no válido');
+      data = { ...data, ...imported };
+      save();
+      if(state.view === 'ejercicios') renderEjercicios();
+      alert('Datos importados correctamente. Se han conservado también los datos que ya tenías en este dispositivo.');
+    } catch(error) {
+      alert('No se ha podido importar el archivo. Selecciona una copia de datos de Gym Tracker en formato JSON.');
+    }
+  };
+  reader.readAsText(file);
 }
 
 function queueCloudSave(){
